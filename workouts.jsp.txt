@@ -1,0 +1,66 @@
+<%@ page contentType="text/html;charset=UTF-8" %> 
+<%@ page import="java.util.*" %> 
+<html> 
+<head> 
+<title>Workout Suggestions</title> 
+<style> 
+body {font-family:'Roboto',sans-serif; background:linear-gradient(120deg,#232526,#434343 
+100%);} 
+.container{background:#181c21;color:#e7eef1;border-radius:18px;box-shadow:0 8px 30px 
+#0008;padding:38px;max-width:600px;width:97%;margin:40px auto;} 
+h2{color:#ff3c3c;font:1.7em 'Bebas Neue','Roboto',sans-serif;} 
+.exercise{margin:16px 0;} 
+.exercise-title{font-weight:700;color:#ff3c3c;font-size:1.14em;} 
+.exercise-desc{font-size:1em;margin-left:4px;} 
+a{margin-top:24px;display:block;color:#fff;background:#ff3c3c;padding:13px 
+20px;border-radius:8px;text-decoration:none;width:max-content;font-weight: 700;} 
+a:hover {background:#cf1818;} 
+</style> 
+</head> 
+<body> 
+<div class="container"> 
+<% 
+String muscle = request.getParameter("muscle"); 
+Map<String, String[][]> allWorkouts = new HashMap<>(); 
+allWorkouts.put("Chest", new String[][] { 
+{"Bench Press","A basic compound exercise for chest that also works shoulders and triceps."}, 
+{"Incline Dumbbell Press","Focuses on the upper pecs, helps build a fuller chest."}, 
+{"Pushups","Bodyweight staple for building overall chest endurance and strength."} 
+}); 
+allWorkouts.put("Tricep", new String[][] { 
+{"Tricep Dips","Targets the triceps, good for building arm size and pushing power."}, 
+{"Skullcrushers","Great isolation movement for all three heads of the triceps."} 
+}); 
+allWorkouts.put("Back", new String[][] { 
+{"Pull-Ups","Classic upper back builder and biceps exercise using your bodyweight."}, 
+{"Seated Row","Builds the mid-back and biceps, helps posture."} 
+}); 
+allWorkouts.put("Bicep", new String[][] { 
+{"Barbell Curl","Excellent for overall bicep thickness and strength."}, 
+{"Hammer Curl","Targets the brachialis for fuller-looking arms."} 
+}); 
+allWorkouts.put("Shoulders", new String[][] { 
+{"Overhead Press","Foundational compound lift for shoulders and arms."}, 
+{"Lateral Raise","Isolates side deltoids for shoulder width."} 
+}); 
+allWorkouts.put("Legs", new String[][] { 
+{"Squat","King of leg exercises, works quads, hamstrings, glutes, and core."}, 
+{"Leg Extension","Isolates and strengthens the quadriceps."}, 
+{"Lunges","Improves balance, leg strength, and flexibility."} 
+}); 
+String[][] exList = allWorkouts.getOrDefault(muscle, new String[0][0]); 
+%> 
+<h2><%=muscle%> Workout Ideas</h2> 
+<% if(exList.length==0){ %> 
+<p>No exercises found.</p> 
+<%} else {  
+for(String[] ex: exList){ %> 
+<div class="exercise"> 
+<span class="exercise-title"><%= ex[0] %></span> 
+<div class="exercise-desc"><%= ex[1] %></div> 
+</div> 
+<% }} %> 
+<a href="muscle.jsp">Back to Muscle Selection</a> 
+</div> 
+</body> 
+</html>

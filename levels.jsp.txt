@@ -1,0 +1,39 @@
+<%@ page contentType="text/html;charset=UTF-8" %> 
+<html> 
+<head> 
+<title>Training Level</title> 
+<style> 
+body { font-family:'Roboto',sans-serif; background:linear-gradient(120deg,#232526,#434343 
+100%);} 
+.container { background:#181c21;color:#e7eef1;border-radius:18px;box-shadow:0 8px 30px 
+#0008;padding:38px;max-width:420px;width:98%;margin:50px 
+auto;text-align:center;border:2px solid #ff3c3c;} 
+h2 {color:#ff3c3c; font:2em 'Bebas Neue','Roboto',sans-serif;} 
+label { color:#ff3c3c; font-weight:600; display:block; margin-bottom:12px;} 
+input[type=radio] {accent-color:#cf1818;} 
+button {margin-top:18px;background:#ff3c3c;color:white;border:none;padding:13px 
+28px;border-radius:8px;text-transform:uppercase;font-size:1.07em;font-weight:bold;cursor:point
+ er;transition:background 0.23s;} 
+button:hover{background:#cf1818;} 
+</style> 
+</head> 
+<body> 
+<div class="container"> 
+<h2>Your Experience Level</h2> 
+<form action="muscle.jsp" method="post"> 
+<input type="hidden" name="username" value="<%= request.getParameter("username") 
+%>"> 
+<input type="hidden" name="age" value="<%= request.getParameter("age") %>"> 
+<input type="hidden" name="gender" value="<%= request.getParameter("gender") %>"> 
+<input type="hidden" name="height" value="<%= request.getParameter("height") %>"> 
+<input type="hidden" name="weight" value="<%= request.getParameter("weight") %>"> 
+<input type="hidden" name="issues" value="<%= request.getParameter("issues") %>"> 
+<label>Select your level:</label> 
+<input type="radio" name="level" value="Beginner" required> Beginner (6-12 months) <br> 
+<input type="radio" name="level" value="Intermediate"> Intermediate (12-24 months) <br> 
+<input type="radio" name="level" value="Advanced"> Advanced (24+ months) <br> 
+<button type="submit">Next</button> 
+</form> 
+</div> 
+</body> 
+</html>

@@ -1,0 +1,49 @@
+# Environment Requirements for FitZone Project
+
+Java JDK 8 or above
+Apache Tomcat 9.0 or above
+MongoDB 6.0 or above
+NetBeans IDE (recommended)
+MongoDB Compass (for GUI database view)
+Web Browser (Chrome / Edge)
+
+# FITZONE PROJECT - SETUP INSTRUCTIONS
+
+1. PREREQUISITES
+   - Install Java JDK 8 or later
+   - Install Apache Tomcat 9.0 or later
+   - Install MongoDB (Community Edition) and start the MongoDB service
+   - Install MongoDB Compass (optional, for GUI view)
+   - Use NetBeans IDE for development and deployment
+
+2. DATABASE SETUP
+   - Start MongoDB server using the command: mongod
+   - Open MongoDB Compass or terminal
+   - Create a new database named: gymDB
+   - A collection named 'users' will be automatically created on signup
+
+3. RUNNING THE PROJECT
+   - Open the FitZone project in NetBeans IDE
+   - Add Apache Tomcat server under "Services" tab
+   - Right-click the project and select "Run"
+   - Open browser and go to:
+     http://localhost:8080/FitZone/index.html
+
+4. FEATURES
+   - User Signup & Login
+   - Store user details (age, gender, height, weight, issues)
+   - Select experience level (Beginner, Intermediate, Advanced)
+   - Choose muscle group (Chest, Biceps, etc.)
+   - Get personalized workout ideas dynamically
+
+5. TECH STACK
+   - Frontend: HTML5, CSS3, JavaScript
+   - Backend: JSP (Java), Apache Tomcat
+   - Database: MongoDB (NoSQL)
+   - IDE: NetBeans
+
+6. AUTHOR DETAILS
+   - Name: Mahesh Gurav
+   - Course: M.Sc. Data Analytics
+   - College: Pillai College of Arts, Commerce and Science, New Panvel
+   - Email: mrmaheshgurav@gmail.com

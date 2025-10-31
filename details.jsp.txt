@@ -1,0 +1,179 @@
+<%@ page import="com.mongodb.client.MongoClients" %> 
+<%@ page import="com.mongodb.client.MongoClient" %> 
+<%@ page import="com.mongodb.client.MongoDatabase" %> 
+<%@ page import="com.mongodb.client.MongoCollection" %> 
+<%@ page import="org.bson.Document" %> 
+<%@ page contentType="text/html;charset=UTF-8" %> 
+<html> 
+<head> 
+<title>User Details</title> 
+<style> 
+body { font-family:'Roboto',sans-serif;background:linear-gradient(120deg,#232526,#434343 
+100%);} 
+.container { background:#181c21;color:#e7eef1;border-radius:18px; 
+box-shadow:0 8px 30px #0008;padding:38px;max-width:420px;width:98%; 
+margin:50px auto;text-align:center;border:2px solid #ff3c3c;} 
+h2 { color:#ff3c3c;font-family:'Bebas 
+Neue','Roboto',sans-serif;letter-spacing:2px;font-weight:bold;margin-bottom:18px;} 
+label {display:block; margin-top:13px; color:#ff3c3c;font-weight:bold;text-align:left;} 
+input,select{ width:92%;padding:13px 12px;margin:12px 
+0;background:#23282f;color:#e7eef1;border:2px solid 
+#454d57;font-size:1.06em;border-radius:8px;outline:none;} 
+input:focus, select:focus { border:2px solid #ff3c3c; } 
+.disease-set{margin-top:12px;text-align:left;} 
+button {margin-top:18px;background:#ff3c3c;color:white;border:none;padding:14px 
+28px;border-radius:8px;text-transform:uppercase;font-size:1.07em;font-weight:bold;cursor:point
+ er;transition:background 0.23s;} 
+button:hover{background:#cf1818;} 
+span.error { color:#ff3c3c; font-weight:bold; display:block; margin-top:12px;} 
+</style> 
+</head> 
+<body> 
+<div class="container"> 
+<% 
+String action = request.getParameter("action"); 
+String username = request.getParameter("username"); 
+String password = request.getParameter("password"); 
+String email = request.getParameter("email"); 
+String uri = "mongodb://localhost:27017"; 
+if ("signup".equals(action)) { 
+try (MongoClient mongoClient = MongoClients.create(uri)) { 
+MongoDatabase db = mongoClient.getDatabase("gymDB"); 
+MongoCollection<Document> users = db.getCollection("users"); 
+Document existing = users.find(new Document("username", username)).first(); 
+if (existing != null) { 
+%> 
+<span class="error">Username already exists. <a href="index.html" style="color:#fff;">Try 
+again</a></span> 
+<% 
+%> 
+} else { 
+Document newUser = new Document("username", username) 
+.append("password", password) 
+.append("email", email); 
+users.insertOne(newUser); 
+<h2>Fill in your details</h2> 
+<form action="details.jsp" method="post"> 
+<input type="hidden" name="action" value="details"/> 
+<input type="hidden" name="username" value="<%= username %>"> 
+<label>Age:</label> 
+<input type="number" name="age" min="10" max="100" required> 
+<label>Gender:</label> 
+<select name="gender" required> 
+<option value="" disabled 
+selected>Select</option><option>Female</option><option>Male</option><option>Other</opti
+ on> 
+</select> 
+<label>Height (cm):</label> 
+<input type="number" name="height" min="90" max="250" required> 
+<label>Weight (kg):</label> 
+<input type="number" name="weight" min="25" max="250" required> 
+<label>Disease/Injury (select all that apply):</label> 
+<div class="disease-set"> 
+<input type="checkbox" name="issues" value="Diabetes"> Diabetes &nbsp; 
+<input type="checkbox" name="issues" value="Hypertension"> Hypertension &nbsp; 
+<input type="checkbox" name="issues" value="Asthma"> Asthma &nbsp; 
+<input type="checkbox" name="issues" value="Heart Issue"> Heart Issue &nbsp; 
+<input type="checkbox" name="issues" value="Joint Pain"> Joint Pain &nbsp; 
+<input type="checkbox" name="issues" value="Other"> Other 
+</div> 
+<button type="submit">Next</button> 
+</form> 
+<% 
+} 
+} catch (Exception e) { 
+%> 
+<span class="error">Error: <%= e.getMessage() %></span> 
+<% 
+} 
+} else if ("login".equals(action)) { 
+try (MongoClient mongoClient = MongoClients.create(uri)) { 
+MongoDatabase db = mongoClient.getDatabase("gymDB"); 
+MongoCollection<Document> users = db.getCollection("users"); 
+Document query = new Document("username", username).append("password", password); 
+Document user = users.find(query).first(); 
+if (user != null) { 
+// If user already has details, skip to level.jsp 
+if (user.containsKey("age")) { 
+%> 
+<% 
+%> 
+<script>window.location.href = "level.jsp?username=<%= username %>";</script> 
+} else { 
+<h2>Fill in your details</h2> 
+<form action="details.jsp" method="post"> 
+<input type="hidden" name="action" value="details"/> 
+<input type="hidden" name="username" value="<%= username %>"> 
+<label>Age:</label> 
+<input type="number" name="age" min="10" max="100" required> 
+<label>Gender:</label> 
+<select name="gender" required> 
+<option value="" disabled 
+selected>Select</option><option>Female</option><option>Male</option><option>Other</opti
+ on> 
+</select> 
+<label>Height (cm):</label> 
+<input type="number" name="height" min="90" max="250" required> 
+<label>Weight (kg):</label> 
+<input type="number" name="weight" min="25" max="250" required> 
+<label>Disease/Injury (select all that apply):</label> 
+<div class="disease-set"> 
+<input type="checkbox" name="issues" value="Diabetes"> Diabetes &nbsp; 
+<input type="checkbox" name="issues" value="Hypertension"> Hypertension &nbsp; 
+<input type="checkbox" name="issues" value="Asthma"> Asthma &nbsp; 
+<input type="checkbox" name="issues" value="Heart Issue"> Heart Issue &nbsp; 
+<input type="checkbox" name="issues" value="Joint Pain"> Joint Pain &nbsp; 
+<input type="checkbox" name="issues" value="Other"> Other 
+</div> 
+<button type="submit">Next</button> 
+</form> 
+<% 
+%> 
+} 
+} else { 
+<span class="error">Invalid login. <a href="index.html" style="color:#fff;">Try 
+again</a></span> 
+<% 
+} 
+} catch (Exception e) { 
+%> 
+<span class="error">Error: <%= e.getMessage() %></span> 
+<% 
+} 
+} else if ("details".equals(action)) { 
+// Save details submitted by signup/login form 
+String age = request.getParameter("age"); 
+String gender = request.getParameter("gender"); 
+String height = request.getParameter("height"); 
+String weight = request.getParameter("weight"); 
+String[] issuesParam = request.getParameterValues("issues"); 
+String issues = (issuesParam != null) ? String.join(", ", issuesParam) : ""; 
+try (MongoClient mongoClient = MongoClients.create(uri)) { 
+MongoDatabase db = mongoClient.getDatabase("gymDB"); 
+MongoCollection<Document> users = db.getCollection("users"); 
+Document updateFields = new Document() 
+.append("age", age) 
+.append("gender", gender) 
+.append("height", height) 
+.append("weight", weight) 
+.append("issues", issues); 
+users.updateOne(new Document("username", username), new Document("$set", 
+updateFields)); 
+%> 
+<script>window.location.href = "level.jsp?username=<%= username %>";</script> 
+<% 
+} catch (Exception e) { 
+%> 
+<span class="error">Error saving details: <%= e.getMessage() %></span> 
+<% 
+} 
+} else { 
+%> 
+<span class="error">Invalid action. <a href="index.html" style="color:#fff;">Go 
+back</a></span> 
+<% 
+} 
+%> 
+</div> 
+</body> 
+</html>

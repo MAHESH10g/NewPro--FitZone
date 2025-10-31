@@ -1,0 +1,34 @@
+<%@ page contentType="text/html;charset=UTF-8" %> 
+<html> 
+<head> 
+<title>Choose Muscle Group</title> 
+<style> 
+body {font-family:'Roboto',sans-serif; background:linear-gradient(120deg,#232526,#434343 
+100%);} 
+.container{background:#181c21;color:#e7eef1;border-radius:18px;box-shadow:0 8px 30px 
+#0008;padding:38px;max-width:430px;width:99%;margin:50px 
+auto;text-align:center;border:2px solid #ff3c3c;} 
+h2 {color:#ff3c3c;font:2em 'Bebas Neue','Roboto',sans-serif;} 
+a.muscle-link{display:block;margin:12px auto;padding:15px 
+22px;width:78%;background:#23282f;color:#fff;text-decoration:none;font-weight:700;border-ra
+ dius:8px;transition:background 0.19s, color 0.19s;} 
+a.muscle-link:hover{color:#fff;background:#ff3c3c;} 
+</style> 
+</head> 
+<body> 
+<div class="container"> 
+<h2>Which muscle/group to train?</h2> 
+<% 
+String params = 
+"username="+request.getParameter("username")+"&level="+request.getParameter("level"); 
+%> 
+<a href="workouts.jsp?muscle=Chest&<%=params%>" class="muscle-link">Chest</a> 
+<a href="workouts.jsp?muscle=Tricep&<%=params%>" class="muscle-link">Tricep</a> 
+<a href="workouts.jsp?muscle=Back&<%=params%>" class="muscle-link">Back</a> 
+<a href="workouts.jsp?muscle=Bicep&<%=params%>" class="muscle-link">Bicep</a> 
+<a href="workouts.jsp?muscle=Shoulders&<%=params%>" 
+class="muscle-link">Shoulders</a> 
+<a href="workouts.jsp?muscle=Legs&<%=params%>" class="muscle-link">Legs</a> 
+</div> 
+</body> 
+</html>

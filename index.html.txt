@@ -1,0 +1,109 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8" /> 
+<title>Gym Workout Ideas – Login/Signup</title> 
+<style> 
+body { 
+font-family: 'Roboto', sans-serif; 
+background: linear-gradient(120deg, #232526 0%, #434343 100%); 
+min-height: 100vh; 
+margin: 0; display: flex; 
+align-items:center; 
+justify-content:center; 
+} 
+.container { 
+background: #181c21; 
+color: #e7eef1; 
+border-radius: 18px; 
+box-shadow: 0 8px 30px #0008; 
+padding: 38px; 
+max-width: 420px; 
+width:98%; 
+text-align: center; 
+border: 2px solid #ff3c3c; 
+} 
+h2 { 
+color: #ff3c3c; 
+font-family: 'Bebas Neue', 'Roboto', sans-serif; 
+font-size: 2.1em; 
+letter-spacing: 2px; 
+font-weight: bold; 
+margin-bottom: 18px; 
+} 
+input, select { 
+width: 92%; 
+padding: 13px 12px; 
+margin: 12px 0; 
+background: #23282f; 
+color: #e7eef1; 
+border: 2px solid #454d57; 
+font-size: 1.06em; 
+border-radius: 8px; 
+outline: none; 
+transition: border 0.2s; 
+} 
+input:focus, select:focus { border: 2px solid #ff3c3c; } 
+button { 
+margin-top: 10px; 
+background: #ff3c3c; 
+color: #fff; 
+border: none; 
+padding: 13px 30px; 
+border-radius: 8px; 
+text-transform: uppercase; 
+font-size: 1.07em; 
+font-weight:bold; 
+cursor: pointer; 
+box-shadow: 0 2px 14px #bb28281a; 
+transition: background 0.23s, transform 0.12s; 
+margin-bottom: 10px; 
+} 
+button:hover { background: #cf1818; transform: scale(1.045);} 
+.toggle-link { 
+margin-top: 10px; 
+display: block; 
+color: #ff3c3c; 
+text-decoration: underline; 
+cursor: pointer; 
+font-weight: bold; 
+transition: color 0.19s; 
+} 
+.toggle-link:hover { color: #fff; } 
+.hidden { display: none; } 
+</style> 
+<script> 
+function toggleForms() { 
+var login = document.getElementById('login-form'); 
+var signup = document.getElementById('signup-form'); 
+if (login.style.display === 'none') { 
+login.style.display = 'block'; signup.style.display = 'none'; 
+} else { 
+login.style.display = 'none'; signup.style.display = 'block'; 
+} 
+} 
+</script> 
+</head> 
+<body> 
+<div class="container"> 
+<h2>GYM WORKOUT IDEAS</h2> 
+<!-- Login Form --> 
+<form id="login-form" action="details.jsp" method="post"> 
+<input type="hidden" name="action" value="login"> 
+<input type="text" name="username" placeholder="Username" required> 
+<input type="password" name="password" placeholder="Password" required> 
+<button type="submit">Login</button> 
+<span class="toggle-link" onclick="toggleForms()">Don't have an account? Sign up</span> 
+</form> 
+<!-- Signup Form --> 
+<form id="signup-form" action="details.jsp" method="post" class="hidden"> 
+<input type="hidden" name="action" value="signup"> 
+<input type="text" name="username" placeholder="Choose Username" required> 
+<input type="password" name="password" placeholder="Choose Password" required> 
+<input type="email" name="email" placeholder="E-mail" required> 
+<button type="submit">Sign Up</button> 
+<span class="toggle-link" onclick="toggleForms()">Already have an account? Login</span> 
+</form> 
+</div> 
+</body> 
+</html>
